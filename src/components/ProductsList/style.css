@@ -1,0 +1,8 @@
+.divProductList {
+  margin: 16px 0 16px 16px;
+}
+
+.divProductList ul {
+  display: flex;
+  overflow: auto;
+}
