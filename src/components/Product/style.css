@@ -3,12 +3,15 @@
   height: 340px;
   border: 2px solid #e0e0e0;
   border-radius: 5px;
-  margin-right: 20px;
+  margin-right: 14px;
 }
 .productCard figure {
   background-color: #f5f5f5;
   width: 100%;
   height: 150px;
+}
+.productCard:hover {
+  border-color: black;
 }
 .hidden {
   display: none;
@@ -41,4 +44,18 @@
   margin: 25px 21px;
   gap: 15px;
   text-align: left;
+}
+.buttonAddCart:hover {
+  background-color: #93d7af;
+}
+.drinksImgFix img {
+  margin-top: 10px;
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  object-position: 0 90%;
+}
+.ovoImgFix img {
+  margin-top: -20px;
+  object-fit: cover;
 }

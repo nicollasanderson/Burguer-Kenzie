@@ -8,7 +8,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentSale, setCurrentSale] = useState([]);
-  const [cartTotal, setCartTotal] = useState(0);
+  const [search, setSearch] = useState("");
+  const [searchFinal, setSearchFinal] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -25,6 +26,7 @@ function App() {
 
   function addToCart(item) {
     const find = currentSale.find((element) => element === item);
+
     if (find === undefined) {
       setCurrentSale([...currentSale, item]);
     }
@@ -33,6 +35,49 @@ function App() {
   function handleClick(item) {
     const filtered = currentSale.filter((element) => element !== item);
     setCurrentSale(filtered);
+  }
+
+  function filterItens(search) {
+    const filtered = products.filter((element) =>
+      element.name
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .includes(
+          search
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+        )
+    );
+
+    const filteredCategory = products.filter((element) =>
+      element.category
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .includes(
+          search
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+        )
+    );
+
+    if (filtered.length === 0) {
+      setFilteredProducts(filteredCategory);
+    } else {
+      setFilteredProducts(filtered);
+    }
+
+    if (filtered.length === 0 && filteredCategory.length === 0) {
+      setFilteredProducts(false);
+    }
+    setSearchFinal(search);
+
+    if (search === "") {
+      setFilteredProducts([]);
+    }
   }
 
   return (
@@ -45,16 +90,26 @@ function App() {
               type="text"
               placeholder="Digite sua pesquisa"
               id="searchInput"
-              onChange={(e) => setFilteredProducts(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button>Pesquisar</button>
+            <button onClick={() => filterItens(search)}>Pesquisar</button>
           </div>
         </div>
       </header>
 
-      <main>
-        <ProductsList products={products} addToCart={addToCart} />
-        <Cart currentSale={currentSale} handleClick={handleClick} />
+      <main className="mainContainer">
+        <ProductsList
+          products={filteredProducts.length > 0 ? filteredProducts : products}
+          addToCart={addToCart}
+          filteredProducts={filteredProducts}
+          search={searchFinal}
+          setFilteredProducts={setFilteredProducts}
+        />
+        <Cart
+          currentSale={currentSale}
+          setCurrentSale={setCurrentSale}
+          handleClick={handleClick}
+        />
       </main>
     </div>
   );

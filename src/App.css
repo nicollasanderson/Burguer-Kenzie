@@ -32,16 +32,18 @@
   width: 85%;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
-  height: 50px;
+}
+.divSearch input {
+  width: 100%;
+  border: none;
+  height: 40px;
   margin: 13px 0;
   padding: 10px;
   border-radius: 10px;
+  border: 2px solid #e0e0e0;
 }
-.divSearch input {
-  width: 60%;
-  border: none;
-  height: 90%;
+.divSearch:focus {
+  border-color: black;
 }
 .divSearch button {
   width: 100px;
@@ -51,10 +53,39 @@
   border-radius: 8px;
   background-color: #27ae60;
   cursor: pointer;
+  margin-left: -110px;
+}
+.divSearch button:hover {
+  background-color: #93d7af;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+@media (min-width: 913px) {
+  .divProductList ul {
+    max-width: 900px;
+    flex-flow: wrap;
+    justify-content: flex-start;
+  }
+  .mainContainer {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+  }
+  .productCard {
+    margin-top: 12px;
+  }
+  .containerHeader {
+    flex-flow: row;
+    width: 75%;
+    justify-content: space-between;
+  }
+  .divSearch {
+    width: 365px;
+  }
 }
 
 @keyframes App-logo-spin {
